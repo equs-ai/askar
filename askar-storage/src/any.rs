@@ -231,13 +231,14 @@ impl BackendSession for AnyBackendSession {
         kind: Option<EntryKind>,
         category: Option<&'q str>,
         tag_filter: Option<TagFilter>,
+        offset: Option<i64>,
         limit: Option<i64>,
         order_by: Option<OrderBy>,
         descending: bool,
         for_update: bool,
     ) -> BoxFuture<'q, Result<Vec<Entry>, Error>> {
         self.0.fetch_all(
-            kind, category, tag_filter, limit, order_by, descending, for_update,
+            kind, category, tag_filter, offset, limit, order_by, descending, for_update,
         )
     }
 
