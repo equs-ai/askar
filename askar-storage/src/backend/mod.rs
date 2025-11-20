@@ -115,7 +115,7 @@ pub trait ManageBackend<'a> {
 }
 
 /// Query from a generic backend implementation
-pub trait BackendSession: Debug + Send {
+pub trait BackendSession: Debug + Send + Sync {
     /// Count the number of matching records in the store
     fn count<'q>(
         &'q mut self,
