@@ -1,3 +1,4 @@
+use askar_storage::any::into_any_backend;
 use askar_storage::backend::{copy_profile, OrderBy};
 
 use crate::{
@@ -173,6 +174,10 @@ impl Store {
             Ok(sess)
         }
     }
+    /// Create a new backend against the store
+    pub async fn backend(&self) -> Result<AnyBackend, Error> {
+        Ok(into_any_backend(self.0.to_owned()))
+    }
 
     /// Create a new transaction session against the store
     pub async fn transaction(&self, profile: Option<String>) -> Result<Session, Error> {
@@ -208,8 +213,8 @@ impl Session {
     }
 
     /// Getter for AnyBackendSession
-    pub fn inner(&self) -> &AnyBackendSession {
-        &self.0
+    pub fn inner(self) -> AnyBackendSession {
+        self.0
     }
 
     /// Count the number of entries for a given record category
@@ -574,4 +579,5 @@ impl Session {
     pub async fn rollback(mut self) -> Result<(), Error> {
         Ok(self.0.close(false).await?)
     }
+
 }
