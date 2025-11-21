@@ -202,7 +202,8 @@ impl From<AnyBackend> for Store {
 pub struct Session(AnyBackendSession);
 
 impl Session {
-    pub(crate) fn new(inner: AnyBackendSession) -> Self {
+    /// Constructor to create Session from BackendSession
+    pub fn new(inner: AnyBackendSession) -> Self {
         Self(inner)
     }
 
