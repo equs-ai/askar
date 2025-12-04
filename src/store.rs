@@ -212,11 +212,6 @@ impl Session {
         Self(inner)
     }
 
-    /// Getter for AnyBackendSession
-    pub fn inner(self) -> AnyBackendSession {
-        self.0
-    }
-
     /// Count the number of entries for a given record category
     pub async fn count(
         &mut self,
