@@ -1,4 +1,3 @@
-use askar_storage::any::into_any_backend;
 use askar_storage::backend::{copy_profile, OrderBy};
 
 use crate::{
@@ -174,10 +173,6 @@ impl Store {
             Ok(sess)
         }
     }
-    /// Create a new backend against the store
-    pub async fn backend(&self) -> Result<AnyBackend, Error> {
-        Ok(into_any_backend(self.0.to_owned()))
-    }
 
     /// Create a new transaction session against the store
     pub async fn transaction(&self, profile: Option<String>) -> Result<Session, Error> {
@@ -207,8 +202,7 @@ impl From<AnyBackend> for Store {
 pub struct Session(AnyBackendSession);
 
 impl Session {
-    /// Constructor to create Session from BackendSession
-    pub fn new(inner: AnyBackendSession) -> Self {
+    pub(crate) fn new(inner: AnyBackendSession) -> Self {
         Self(inner)
     }
 
@@ -574,5 +568,4 @@ impl Session {
     pub async fn rollback(mut self) -> Result<(), Error> {
         Ok(self.0.close(false).await?)
     }
-
 }

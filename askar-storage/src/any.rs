@@ -203,13 +203,6 @@ impl Backend for AnyBackend {
 #[derive(Debug)]
 pub struct AnyBackendSession(Box<dyn BackendSession>);
 
-impl AnyBackendSession {
-    /// Constructor to create AnyBackendSession
-    pub fn new(backend: Box<dyn BackendSession>) -> Self {
-        Self(backend)
-    }
-}
-
 impl BackendSession for AnyBackendSession {
     /// Count the number of matching records in the store
     fn count<'q>(
