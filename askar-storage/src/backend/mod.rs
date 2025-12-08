@@ -140,6 +140,7 @@ pub trait BackendSession: Debug + Send {
         kind: Option<EntryKind>,
         category: Option<&'q str>,
         tag_filter: Option<TagFilter>,
+        offset: Option<i64>,
         limit: Option<i64>,
         order_by: Option<OrderBy>,
         descending: bool,

@@ -807,6 +807,7 @@ pub extern "C" fn askar_session_fetch_all(
     handle: SessionHandle,
     category: FfiStr<'_>,
     tag_filter: FfiStr<'_>,
+    offset: i64,
     limit: i64,
     order_by: FfiStr<'_>,
     descending: i8,
@@ -828,6 +829,7 @@ pub extern "C" fn askar_session_fetch_all(
         let category = category.into_opt_string();
         let tag_filter = tag_filter.as_opt_str().map(TagFilter::from_str).transpose()?;
         let limit = if limit < 0 { None } else {Some(limit)};
+        let offset = if offset < 0 { None } else {Some(offset)};
         let cb = EnsureCallback::new(move |result|
             match result {
                 Ok(rows) => {
@@ -840,7 +842,7 @@ pub extern "C" fn askar_session_fetch_all(
         spawn_ok(async move {
             let result = async {
                 let mut session = FFI_SESSIONS.borrow(handle).await?;
-                session.fetch_all(category.as_deref(), tag_filter, limit, order_by, descending, for_update != 0).await
+                session.fetch_all(category.as_deref(), tag_filter, offset, limit, order_by, descending, for_update != 0).await
             }.await;
             cb.resolve(result);
         });
@@ -1041,6 +1043,7 @@ pub extern "C" fn askar_session_fetch_all_keys(
     alg: FfiStr<'_>,
     thumbprint: FfiStr<'_>,
     tag_filter: FfiStr<'_>,
+    offset: i64,
     limit: i64,
     for_update: i8,
     cb: Option<extern "C" fn(cb_id: CallbackId, err: ErrorCode, results: KeyEntryListHandle)>,
@@ -1053,6 +1056,7 @@ pub extern "C" fn askar_session_fetch_all_keys(
         let thumbprint = thumbprint.into_opt_string();
         let tag_filter = tag_filter.as_opt_str().map(TagFilter::from_str).transpose()?;
         let limit = if limit < 0 { None } else {Some(limit)};
+        let offset = if offset < 0 { None } else {Some(offset)};
 
         let cb = EnsureCallback::new(move |result|
             match result {
@@ -1071,6 +1075,7 @@ pub extern "C" fn askar_session_fetch_all_keys(
                     alg.as_deref(),
                     thumbprint.as_deref(),
                     tag_filter,
+                    offset,
                     limit,
                     for_update != 0
                 ).await
