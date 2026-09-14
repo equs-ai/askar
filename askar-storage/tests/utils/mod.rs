@@ -90,6 +90,7 @@ pub async fn db_insert_fetch(db: AnyBackend) {
             None,
             None,
             None,
+            None,
             false,
             false,
         )
@@ -732,6 +733,7 @@ pub async fn db_txn_fetch_for_update(db: AnyBackend) {
         .fetch_all(
             Some(EntryKind::Item),
             Some(&test_row.category),
+            None,
             None,
             Some(2),
             None,
