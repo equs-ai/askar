@@ -1,15 +1,17 @@
 [package]
-name = "askar-crypto"
+name = "equs-askar-crypto"
 version = "0.3.7"
-authors = ["Hyperledger Aries Contributors <aries@lists.hyperledger.org>"]
 edition = "2021"
 description = "Hyperledger Aries Askar cryptography"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/hyperledger/aries-askar/"
+repository = "https://github.com/equs-ai/askar"
 categories = ["cryptography", "no-std"]
 keywords = ["hyperledger", "aries", "didcomm", "ssi"]
 rust-version = "1.67"
+
+[lib]
+name = "askar_crypto"
 
 [package.metadata.docs.rs]
 features = ["argon2", "std"]

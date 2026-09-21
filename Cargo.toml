@@ -3,14 +3,13 @@ members = ["askar-crypto", "askar-storage"]
 resolver = "2"
 
 [package]
-name = "aries-askar"
+name = "equs-aries-askar"
 version = "0.4.6"
-authors = ["Hyperledger Aries Contributors <aries@lists.hyperledger.org>"]
 edition = "2021"
 description = "Askar cryptographic primitives and secure storage"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/openwallet-foundation/askar/"
+repository = "https://github.com/equs-ai/askar"
 categories = ["cryptography", "database"]
 keywords = ["encryption", "signatures", "ssi", "verifiable", "credentials"]
 rust-version = "1.81"
@@ -51,11 +50,13 @@ serde_json = "1.0"
 zeroize = "1.5"
 
 [dependencies.askar-crypto]
+package = "equs-askar-crypto"
 features = ["all_keys", "any_key", "argon2", "crypto_box", "std"]
 path = "./askar-crypto"
 version = "0.3.7"
 
 [dependencies.askar-storage]
+package = "equs-askar-storage"
 default-features = false
 features = ["any"]
 path = "./askar-storage"
