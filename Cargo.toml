@@ -12,7 +12,7 @@ readme = "README.md"
 repository = "https://github.com/equs-ai/askar"
 categories = ["cryptography", "database"]
 keywords = ["encryption", "signatures", "ssi", "verifiable", "credentials"]
-rust-version = "1.81"
+rust-version = "1.94"
 
 [package.metadata.docs.rs]
 features = ["all_backends"]
