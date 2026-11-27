@@ -14,3 +14,6 @@ diverged at `1eec2a1`.
 - Published as `equs-aries-askar`, `equs-askar-crypto` and `equs-askar-storage`,
   since all three names are taken on crates.io by upstream. Each keeps its old
   `[lib]` name, so imports are unchanged.
+- `equs-askar-storage` uses sqlx 0.9 (upstream `4e35af1`), which takes
+  `libsqlite3-sys` 0.40 and clears RUSTSEC-2026-0459. `equs-aries-askar` and
+  `equs-askar-storage` need Rust 1.94.

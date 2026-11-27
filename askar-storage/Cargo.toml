@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/equs-ai/askar"
 categories = ["cryptography", "database"]
 keywords = ["encryption", "signatures", "ssi", "verifiable", "credentials"]
-rust-version = "1.81"
+rust-version = "1.94"
 
 [lib]
 name = "askar_storage"
@@ -22,10 +22,10 @@ rustdoc-args = ["--cfg", "docsrs"]
 all_backends = ["any", "postgres", "sqlite"]
 any = []
 default = ["all_backends", "log"]
-migration = ["dep:rmp-serde", "dep:sqlx", "sqlx?/macros"]
+migration = ["dep:rmp-serde", "dep:sqlx", "dep:sqlx-core", "sqlx?/macros"]
 pg_test = ["postgres"]
-postgres = ["dep:sqlx", "sqlx?/postgres", "sqlx?/tls-rustls"]
-sqlite = ["dep:sqlx", "sqlx?/sqlite"]
+postgres = ["dep:sqlx", "dep:sqlx-core", "sqlx?/postgres", "sqlx?/tls-rustls"]
+sqlite = ["dep:sqlx", "dep:sqlx-core", "sqlx?/sqlite"]
 
 [dependencies]
 arc-swap = "1.6"
@@ -62,7 +62,12 @@ version = "0.3"
 default-features = false
 features = ["chrono", "runtime-tokio"]
 optional = true
-version = "0.8"
+version = "0.9"
+
+[dependencies.sqlx-core]
+# needed for the TransactionManager trait, which is not re-exported by sqlx
+version = "0.9"
+optional = true
 
 [dev-dependencies]
 env_logger = "0.11"
